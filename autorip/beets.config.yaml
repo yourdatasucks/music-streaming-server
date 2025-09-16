@@ -1,0 +1,17 @@
+directory: /srv/streamingserver/music/library
+library: /srv/streamingserver/music/beets.db
+import:
+  move: yes
+  write: yes
+  copy: no
+  languages: en
+plugins: fetchart embedart
+fetchart:
+  sources: coverart itunes fanarttv wikipedia
+  minwidth: 600
+  maxwidth: 1000
+  auto: yes
+embedart:
+  auto: yes
+paths:
+  default: $albumartist/$album%aunique{}/$track - $title

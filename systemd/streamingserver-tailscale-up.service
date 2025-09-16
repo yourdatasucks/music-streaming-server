@@ -1,0 +1,20 @@
+[Unit]
+Description=streamingserver Tailscale Up (config-driven)
+Wants=network-online.target
+After=network-online.target tailscaled.service
+Requires=tailscaled.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/opt/streamingserver/config/tailscale.env
+ExecStart=/usr/bin/bash -lc '\
+  [[ "${TAILSCALE_ENABLE}" != "true" ]] && exit 0; \
+  args="--ssh"; \
+  [[ -n "${TAILSCALE_AUTHKEY}" ]] && args="$args --authkey=${TAILSCALE_AUTHKEY}"; \
+  [[ -n "${TAILSCALE_TAGS}" ]] && args="$args --advertise-tags=${TAILSCALE_TAGS}"; \
+  [[ -n "${TAILSCALE_EXTRA_FLAGS}" ]] && args="$args ${TAILSCALE_EXTRA_FLAGS}"; \
+  /usr/bin/tailscale up $args'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

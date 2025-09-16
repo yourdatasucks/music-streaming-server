@@ -1,0 +1,60 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    restart: unless-stopped
+    environment:
+      ND_MUSICFOLDER: /music/library
+      ND_DATAFOLDER: /data
+      ND_PORT: "4533"
+      ND_SCANNER_SCANONSTARTUP: "true"
+      ND_SCANNER_SCHEDULE: "@every 24h"
+      ND_SCANNER_WATCHER: "true"
+      ND_SCANNER_WATCHERWAIT: "10s"
+    volumes:
+      - ${MUSIC_LIB}:/music/library
+      - ${MUSIC_DATA}:/data
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    environment:
+      FB_DATABASE: /database/filebrowser.db
+      FB_ROOT: /srv
+    volumes:
+      - ${MUSIC_LIB}:/srv
+      - ${FILEBROWSER_DB}:/database/filebrowser.db
+      - ${FILEBROWSER_SETTINGS}:/config/settings.json:ro
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80","443:443"]
+    environment:
+      - DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}
+      - UPLOAD_USER=${UPLOAD_USER}
+      - UPLOAD_HASH=${UPLOAD_HASH}
+    volumes:
+      - ${CADDYFILE}:/etc/caddy/Caddyfile:ro
+      - ${CADDY_SITE}:/srv/caddy/site:ro
+      - ${CADDY_SNIPPETS}:/etc/caddy/snippets:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - navidrome
+      - filebrowser
+
+  duckdns:
+    image: ghcr.io/linuxserver/duckdns:latest
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+      - SUBDOMAINS=${DUCKDNS_DOMAIN}
+      - TOKEN=${DUCKDNS_TOKEN}
+      - LOG_FILE=true
+    volumes:
+      - duckdns_data:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
+  duckdns_data:

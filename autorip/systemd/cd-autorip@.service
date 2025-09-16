@@ -1,0 +1,10 @@
+[Unit]
+Description=Auto-rip Audio CD from /dev/%I
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/cd-autorip.sh /dev/%I
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

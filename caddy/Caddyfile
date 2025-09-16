@@ -1,0 +1,16 @@
+https://{env.DUCKDNS_DOMAIN}.duckdns.org {
+  encode gzip
+
+  handle_path /assets* {
+    root * /srv/caddy/site
+    file_server
+  }
+
+  root * /srv/caddy/site
+  file_server
+
+  handle_path /upload*  { reverse_proxy filebrowser:80 }
+  handle_path /listen*  { reverse_proxy navidrome:4533 }
+
+  import /etc/caddy/snippets/*.caddy
+}

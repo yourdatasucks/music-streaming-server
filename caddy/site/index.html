@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Streaming Server</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="t"><h1 id="t">Streaming Server</h1>
+    <p class="sub">Drop albums, then play them from the app or web player.</p>
+    <div class="links">
+      <a class="btn" href="/upload"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l4 4h-3v6h-2V7H8l4-4zM6 17h12v2H6z"/></svg><span>Upload music</span><span class="badge">drag & drop</span></a>
+      <a class="btn" href="/listen"><svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span>Listen in the web player</span><span class="badge">Navidrome</span></a>
+    </div>
+    <hr><p class="small">Phone app server URL: <span class="code" id="host"></span></p>
+  </main>
+<script>document.getElementById('host').textContent = 'https://' + location.host;</script>
+</body></html>

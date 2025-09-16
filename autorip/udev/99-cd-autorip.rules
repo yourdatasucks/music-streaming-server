@@ -1,0 +1,1 @@
+ACTION=="change", KERNEL=="sr[0-9]*", ENV{ID_CDROM_MEDIA_AUDIO}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}="cd-autorip@%k.service"

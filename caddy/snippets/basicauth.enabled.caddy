@@ -1,0 +1,4 @@
+# Uses env from docker-compose 'environment'
+basicauth /upload* {
+  {env.UPLOAD_USER} {env.UPLOAD_HASH}
+}

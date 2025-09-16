@@ -1,0 +1,10 @@
+{
+  "port": 80,
+  "root": "/srv",
+  "signup": false,
+  "authMethod": "native",
+  "allowCommands": false,
+  "allowEdit": true,
+  "allowNew": true,
+  "branding": { "name": "Streaming Upload" }
+}
