@@ -9,7 +9,7 @@ INSTALL_DIR="/opt/streamingserver"
 
 if [[ -z "$REPO_URL" ]]; then
   echo "Usage: $0 <git-repo-url>"
-  echo "Example: $0 https://github.com/username/streamingserver-starter.git"
+  echo "Example: $0 https://github.com/yourdatasucks/music-streaming-server.git"
   exit 1
 fi
 

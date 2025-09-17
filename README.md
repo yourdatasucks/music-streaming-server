@@ -6,14 +6,20 @@ A complete, ready-to-go music streaming server for Ubuntu. Features automatic SS
 
 ### Option 1: One-Command Setup
 ```bash
+# Install prerequisites (curl and git)
+sudo apt update && sudo apt install -y curl git
+
 # Download and run setup script (handles everything)
-curl -fsSL <setup-script-url> | bash -s <git-repo-url>
+curl -fsSL https://raw.githubusercontent.com/yourdatasucks/music-streaming-server/main/setup.sh | bash -s https://github.com/yourdatasucks/music-streaming-server.git
 ```
 
 ### Option 2: Manual Setup
 ```bash
+# Install prerequisites (curl and git)
+sudo apt update && sudo apt install -y curl git
+
 # Clone and install in one go
-git clone <this repo> /opt/streamingserver
+git clone https://github.com/yourdatasucks/music-streaming-server.git /opt/streamingserver
 cd /opt/streamingserver
 sudo ./install.sh
 ```
